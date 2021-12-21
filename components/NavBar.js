@@ -67,14 +67,14 @@ const NavBar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/ghada">
+              <Link href="/register">
                 <a
                   className={
                     "nav-link " +
-                    `${router.pathname === "/ghada" ? "active" : ""}`
+                    `${router.pathname === "/register" ? "active" : ""}`
                   }
                 >
-                  ghada
+                  register
                 </a>
               </Link>
             </li>
