@@ -3,10 +3,11 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 
-const NavBar = () => {
+const NavBar = ({children}) => {
   const router = useRouter();
   // console.log(router);
   return (
+    <>
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link href="/">
@@ -82,7 +83,10 @@ const NavBar = () => {
         </div>
       </div>
     </nav>
+    {children}
+    </>
   );
 };
 
 export default NavBar;
+

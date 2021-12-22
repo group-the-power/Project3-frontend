@@ -1,15 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
+import axios from "axios"
 import { useState } from "react";
 
-// export async function getStaticProps(context){
-//   const res = await fetch("/register")
-//   const data = await res.json()
 
-//   return {
-//     props: { data }, // will be passed to the page component as props
-//   }
-// }
 
 function Register() {
   const [fullName, setFullName] = useState("");
@@ -21,7 +15,8 @@ function Register() {
   const [cf_password, setConfirmPassword] = useState("");
   const [courses, setCourses] = useState("");
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     const data = {
       fullName: fullName,
       email: email,
@@ -30,10 +25,10 @@ function Register() {
       phoneNumber: phoneNumber,
       education: education,
       cf_password: cf_password,
-      courses: courses,
+     // courses: courses,
     };
     axios
-      .post("", data)
+      .post("http://localhost:5000/users/register", data)
       .then((response) => {
         console.log(response);
         // localStorage.setItem("users", JSON.stringify(data));
@@ -102,6 +97,8 @@ function Register() {
             type="text"
             className="form-control"
             id="exampleInputPassword1"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           />
         </div>
         <div className="form-group">
