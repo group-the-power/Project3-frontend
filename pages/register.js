@@ -1,101 +1,145 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import {useState, useEffect} from 'react'
-//import valid from '../../../project3-backend/database/valid'
-import { useRouter } from 'next/router'
+import Head from "next/head";
+import Link from "next/link";
+import axios from "axios"
+import { useState } from "react";
 
 
 
+function Register() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [education, setEducation] = useState("");
+  const [cf_password, setConfirmPassword] = useState("");
+  const [courses, setCourses] = useState("");
 
-// export async function getStaticProps(context){
-//   const res = await fetch("/register")
-//   const data = await res.json()
-
-
-
-//   return {
-//     props: { data }, // will be passed to the page component as props
-//   }
-// }
-
-const Register = () => {
-  const initialState = { name: '', email: '', password: '', cf_password: '' }
-  const [userData, setUserData] = useState(initialState)
-  const { name, email, password, cf_password } = userData
-
-  
-  
-  
-  const router = useRouter()
-  const handleChangeInput = e => {
-    const {name, value} = e.target
-    setUserData({...userData, [name]:value})
-    
+  function handleSubmit(e) {
+    e.preventDefault();
+    const data = {
+      fullName: fullName,
+      email: email,
+      password: password,
+      city: city,
+      phoneNumber: phoneNumber,
+      education: education,
+      cf_password: cf_password,
+     // courses: courses,
+    };
+    axios
+      .post("http://localhost:5000/users/register", data)
+      .then((response) => {
+        console.log(response);
+        // localStorage.setItem("users", JSON.stringify(data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
-  const handleSubmit = async e => 
-    e.preventDefault()
-    const errMsg = valid(name, email, password, cf_password)
-    if(errMsg) 
 
-    
+  //axios or fetch post call to backend
 
-    const res = await postData('controller/register', userData)
-    if(res.err) 
-    
-  
-    
-    
-  
-  return(
+  return (
     <div>
-      <Head>
+      {/* <Head>
         <title>Register Page</title>
-      </Head>
-      <form className="mx-auto my-4" style={{maxWidth: '500px'}}>
+      </Head> */}
+      <form
+        className="mx-auto my-4"
+        style={{ maxWidth: "500px" }}
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
         <div className="form-group">
           <label htmlFor="name">FullName</label>
-          <input type="text" className="form-control" id="name"
-           />
+          <input
+            type="fullName"
+            name="fullName"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Email address</label>
-          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-           />
-          <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <small id="emailHelp" className="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
         </div>
         <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword1"
-           />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="cf_password">Confirm Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            value={cf_password}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">City</label>
-          <input type="text" className="form-control" id="exampleInputPassword1"
-           />
+          <input
+            type="text"
+            className="form-control"
+            id="exampleInputPassword1"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
         </div>
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Phone Number</label>
-          <input type="text" className="form-control" id="exampleInputPassword1"
-           />
+          <input
+            type="phoneNumber"
+            name="phoneNumber"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            placeholder="Enter Phone Number"
+          />
         </div>
 
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Education</label>
-          <input type="text" className="form-control" id="exampleInputPassword1"
-           />
+          <input
+            type="text"
+            name="education"
+            value={education}
+            onChange={(e) => setEducation(e.target.value)}
+          />
         </div>
 
         <div className="form-group">
-          <label htmlFor="exampleInputPassword2">Confirm Password</label>
-          <input type="password" className="form-control" id="exampleInputPassword2"
-           />
+          <label htmlFor="exampleInputPassword2">Courses</label>
+          <input
+            type="text"
+            name="Courses"
+            value={courses}
+            onChange={(e) => setCourses(e.target.value)}
+          />
         </div>
-        <button type="submit" className="btn btn-dark w-100">Register</button>
+        <button type="submit" className="btn btn-dark w-100">
+          Register
+        </button>
         <p className="my-2">
-          Already have an account? <Link href="/signin"><a style={{color: 'crimson'}}>Login Now</a></Link>
+          Already have an account?
+          {/* <Link ><a style={{color: 'crimson'}}>Login Now</a></Link> */}
         </p>
       </form>
     </div>
-  )
+  );
 }
-  export default Register
+export default Register;

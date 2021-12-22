@@ -3,10 +3,11 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 
-const NavBar = () => {
+const NavBar = ({children}) => {
   const router = useRouter();
   // console.log(router);
   return (
+    <>
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link href="/">
@@ -67,14 +68,14 @@ const NavBar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="/ghada">
+              <Link href="/register">
                 <a
                   className={
                     "nav-link " +
-                    `${router.pathname === "/ghada" ? "active" : ""}`
+                    `${router.pathname === "/register" ? "active" : ""}`
                   }
                 >
-                  ghada
+                  register
                 </a>
               </Link>
             </li>
@@ -82,7 +83,10 @@ const NavBar = () => {
         </div>
       </div>
     </nav>
+    {children}
+    </>
   );
 };
 
 export default NavBar;
+

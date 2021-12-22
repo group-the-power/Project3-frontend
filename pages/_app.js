@@ -1,6 +1,6 @@
 import '../styles/globals.css'
-import Layout from '../components/Layout'
-import {DataProvider} from '../store/GlobalState'
+import Layout from '../components/NavBar'
+
 function MyApp({ Component, pageProps }) {
   return (
      <Layout>
